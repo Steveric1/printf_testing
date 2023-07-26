@@ -7,16 +7,16 @@
  * Return: flags
  */
 
-int get_flags(char *format, int *i)
+int get_flags(const char *format, int *i)
 {
 	/* - + 0 # ' ' */
 	/* 1 2 4 8 16 */
 
-	int i, current_i;
+	int j, current_i;
 	int flags = 0;
 
-	const char flags_chars[] = {'-', '+', '0', '#' ' ', '\0'};
-	const char flags_arr[] = {F_MINUS, F_PLUS, F_ZERO, F_HASH, F_SPACE 0};
+	const char flags_chars[] = {'-', '+', '0', '#', ' ', '\0'};
+	const char flags_arr[] = {F_MINUS, F_PLUS, F_ZERO, F_HASH, F_SPACE, 0};
 
 	for (current_i = *i + 1; format[current_i] != '\0'; current_i++)
 	{

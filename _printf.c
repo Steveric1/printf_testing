@@ -25,7 +25,7 @@ int _printf(const char *format, ...)
 	{
 		if (format[i] != '%')
 		{
-			buffer[buffer_index++] = foramt[i];
+			buffer[buffer_index++] = format[i];
 
 			if (buffer_index == BUFF_SIZE)
 				print_buffer(buffer, &buffer_index);
@@ -63,5 +63,5 @@ void print_buffer(char *buffer, int *index)
 {
 	if (*index > 0)
 		write(1, buffer, *index);
-	index = 0;
+	*index = 0;
 }

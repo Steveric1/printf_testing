@@ -80,7 +80,7 @@ int print_non_printable(va_list args, char buffer[],
 
 	while (str[index] != '\0')
 	{
-		if (is_printable)
+		if (is_printable(str[index]))
 			buffer[index + offset] = str[index];
 		else
 			offset += append_hexa_code(str[index], buffer, index + offset);
@@ -135,6 +135,7 @@ int print_reverse(va_list args, char buffer[],
 	}
 	return (count);
 }
+
 
 /**
  * print_rot13string - Print a string in rot13.

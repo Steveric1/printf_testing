@@ -34,7 +34,7 @@ int print_string(va_list args, char buffer[],
 	int flags, int width, int precision, int size)
 {
 	int len = 0, i;
-	char *str = va_arg(types, char *);
+	char *str = va_arg(args, char *);
 
 	UNUSED(buffer);
 	UNUSED(flags);
@@ -58,7 +58,7 @@ int print_string(va_list args, char buffer[],
 	{
 		if (flags & F_MINUS)
 		{
-			write(1, &str[0], length);
+			write(1, &str[0], len);
 			for (i = width - len; i > 0; i--)
 				write(1, " ", 1);
 			return (width);
@@ -89,7 +89,7 @@ int print_string(va_list args, char buffer[],
 int print_percent(va_list args, char buffer[],
 	int flags, int width, int precision, int size)
 {
-	UNUSED(types);
+	UNUSED(args);
 	UNUSED(buffer);
 	UNUSED(flags);
 	UNUSED(width);
@@ -123,10 +123,10 @@ int print_int(va_list args, char buffer[],
 	if (n == 0)
 		buffer[i--] = '0';
 
-	buffer[BUFF_SIZE] = '\0';
+	buffer[BUFF_SIZE - 1] = '\0';
 	num = (unsigned long int)n;
 
-	if (num < 0)
+	if (n < 0)
 	{
 		num = (unsigned long int)((-1) * n);
 		isNegative = 1;
@@ -135,7 +135,7 @@ int print_int(va_list args, char buffer[],
 	while (num > 0)
 	{
 		buffer[i--] = (num % 10) + '0';
-		num %= 10;
+		num /= 10;
 	}
 	i++;
 
@@ -181,7 +181,7 @@ int print_binary(va_list args, char buffer[],
 	{
 		sum += a[i];
 
-		if (sum || i == 32)
+		if (sum || i == 31)
 		{
 			char k = '0' + a[i];
 
